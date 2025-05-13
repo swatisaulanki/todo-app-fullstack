@@ -10,24 +10,23 @@ const Todo = () => {
   const [editText, setEditText] = useState("");
 
   useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  const fetchTodos = async () => {
-    try {
-      const res = await axios.get(API_BASE);
-      setTodos(res.data);
-    } catch (err) {
-      console.error("Error fetching todos", err);
-    }
-  };
+    // Directly fetch todos here
+    axios
+      .get(API_BASE)
+      .then((res) => setTodos(res.data))
+      .catch((err) => console.error("Error fetching todos", err));
+  }, []); // Empty array ensures this runs only once when the component mounts
 
   const handleAdd = async () => {
     if (!newTodo.trim()) return;
     try {
       await axios.post(API_BASE, { text: newTodo });
       setNewTodo("");
-      fetchTodos();
+      // Refetch the todos after adding a new one
+      axios
+        .get(API_BASE)
+        .then((res) => setTodos(res.data))
+        .catch((err) => console.error("Error fetching todos", err));
     } catch (err) {
       console.error("Error adding todo", err);
     }
@@ -36,7 +35,11 @@ const Todo = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_BASE}/${id}`);
-      fetchTodos();
+      // Refetch the todos after deleting one
+      axios
+        .get(API_BASE)
+        .then((res) => setTodos(res.data))
+        .catch((err) => console.error("Error fetching todos", err));
     } catch (err) {
       console.error("Error deleting todo", err);
     }
@@ -47,7 +50,11 @@ const Todo = () => {
       await axios.put(`${API_BASE}/${id}`, { text: editText });
       setEditTodoId(null);
       setEditText("");
-      fetchTodos();
+      // Refetch the todos after editing one
+      axios
+        .get(API_BASE)
+        .then((res) => setTodos(res.data))
+        .catch((err) => console.error("Error fetching todos", err));
     } catch (err) {
       console.error("Error editing todo", err);
     }
