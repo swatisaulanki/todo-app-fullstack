@@ -109,20 +109,20 @@ const Todo = () => {
               </>
             ) : (
               <>
-                <p className="text-gray-800">{todo.text}</p>
+                <p className="text-gray-800 ">{todo.text}</p>
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
                       setEditTodoId(todo._id);
                       setEditText(todo.text);
                     }}
-                    className="text-blue-500 hover:underline"
+                    className="text-white  bg-green-700 hover:underline"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(todo._id)}
-                    className="text-red-500 hover:underline"
+                    className="text-white bg-red-700 hover:underline"
                   >
                     Delete
                   </button>
