@@ -17,9 +17,9 @@ app.use('/api/todos', todoRoutes);
 
 app.listen(process.env.PORT, async () => { 
     try {
-        await connection
+        await connection();  
         console.log("Connected to the database successfully");
-        console.log(`server is running on port ${process.env.PORT}`);
+        console.log(`Server is running on port ${process.env.PORT}`);
     } catch (err) {
         console.log("Error while connecting to DB");
         console.log(err);
